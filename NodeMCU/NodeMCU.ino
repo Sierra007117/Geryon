@@ -1,7 +1,7 @@
 #include <NTPClient.h>
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
-#include <TM1637Display.h>     //
+#include <TM1637Display.h>    
 
 #define CLK D2                       // Define the connections pins:
 #define DIO D3
@@ -10,9 +10,11 @@ TM1637Display display = TM1637Display(CLK, DIO);              // Create display 
 
 const char *ssid     = "";
 const char *password = "";
+const long utcOffsetInSeconds = 28800;  //8 hours offset
+
 // Define NTP Client to get time
 WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP, "pool.ntp.org", 3600, 60000);
+NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
 void setup(){
   Serial.begin(115200);
